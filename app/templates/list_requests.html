@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}All Requests{% endblock %}
+
+{% block content %}
+    <h1>All Requests</h1>
+
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Requester</th>
+            <th>Status</th>
+            <th>Current Approval Level</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for request in requests %}
+            <tr>
+                <td>{{ request.id }}</td>
+                <td>{{ request.requester.username }}</td>
+                <td>{{ request.status }}</td>
+                <td>{{ request.current_approval_level }}</td>
+                <td>
+                    <a href="{{ url_for('requests.view_request', id=request.id) }}">View</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Request Details{% endblock %}
+
+{% block content %}
+    <h1>Request Details</h1>
+    <p><strong>Request ID:</strong> {{ request.id }}</p>
+    <p><strong>Requester:</strong> {{ request.requester.username }}</p>
+    <p><strong>Status:</strong> {{ request.status }}</p>
+    <p><strong>Current Approval Level:</strong> {{ request.current_approval_level }}</p>
+
+    <h2>Approval Levels</h2>
+    <ul>
+        {% for level in request.approval_levels %}
+            <li>
+                <strong>Level {{ level.level }}:</strong> {{ level.status }}{% if level.approved_by_user %} by {{ level.approved_by_user.username }}{% endif %}
+                {% if level.approved_at %} on {{ level.approved_at }}{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Actions</h2>
+    <form method="post" action="{{ url_for('approvals.approve_request', id=request.id) }}">
+        <input type="submit" value="Approve">
+    </form>
+
+    <form method="post" action="{{ url_for('approvals.reject_request', id=request.id) }}">
+        <input type="submit" value="Reject">
+    </form>
+{% endblock %}

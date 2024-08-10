@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Create request{% endblock %}
+
+{% block content %}
+<h1>Create New Request</h1>
+<form method="post" action="/requests">
+    <label for="request">Request:</label><br>
+    <textarea id="request" name="request" required></textarea><br><br>
+
+    <input type="submit" value="Submit Request">
+</form>
+{% endblock %}
